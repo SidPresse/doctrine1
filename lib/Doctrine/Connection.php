@@ -471,7 +471,11 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
 
                     $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 } catch (PDOException $e) {
-                    throw new Doctrine_Connection_Exception('PDO Connection Error: ' . $e->getMessage());
+                    if(sfConfig::get('sf_environment')=='dev'){
+                        throw new Doctrine_Connection_Exception('Dev env infos, PDO Connection Error: ' . $e->getMessage());
+                    } else {
+                        exit('Due to a database problem we can not connect, please re-try later');
+                    }
                 }
                 $found = true;
             }
