@@ -448,6 +448,9 @@ abstract class Doctrine_Relation implements ArrayAccess
             if (is_object($v)) {
                 $v = 'Object(' . get_class($v) . ')';
             }
+            if (is_array($v)) {
+                $v = 'Array(' . implode("\n", $v) . ')';
+            }
             $r[] = $k . ' : ' . $v;
         }
         $r[] = "</pre>";
